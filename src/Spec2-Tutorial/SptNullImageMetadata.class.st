@@ -9,6 +9,12 @@ Class {
 	#tag : 'Model'
 }
 
+{ #category : 'testing' }
+SptNullImageMetadata >> exists [
+
+	^ false
+]
+
 { #category : 'accessing' }
 SptNullImageMetadata >> file [
 	^ (FileSystem memory root / 'null.image') ensureCreateFile

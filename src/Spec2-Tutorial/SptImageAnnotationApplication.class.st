@@ -2,7 +2,7 @@
 Small application to visualize images and their metadata. 
 
 ```
-SptImageAnnotationApplication new start.
+SptImageAnnotationApplication new run.
 ```
 "
 Class {
@@ -17,12 +17,17 @@ Class {
 SptImageAnnotationApplication class >> startNewApplication [
 	<script>
 
-	^ self new 
-		start;
-		yourself
+	^ self new run
+]
+
+{ #category : 'accessing' }
+SptImageAnnotationApplication >> defaultConfigurationForMorphic [
+
+	^ SptImageAnnotationConfiguration new
 ]
 
 { #category : 'running' }
 SptImageAnnotationApplication >> start [ 
-    SptImageAnnotationPresenter new open
+
+    (SptImageAnnotationPresenter newApplication: self) open
 ]
