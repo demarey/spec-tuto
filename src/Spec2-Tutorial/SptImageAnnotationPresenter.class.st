@@ -7,7 +7,9 @@ Class {
 	#instVars : [
 		'directoryPresenter',
 		'filesPresenter',
-		'imagePresenter'
+		'imagePresenter',
+		'directoryLabelPresenter',
+		'filesLabelPresenter'
 	],
 	#category : 'Spec2-Tutorial-Presenters',
 	#package : 'Spec2-Tutorial',
@@ -39,40 +41,50 @@ SptImageAnnotationPresenter >> connectPresenters [
 SptImageAnnotationPresenter >> defaultLayout [ 
 
 	^ SpPanedLayout newLeftToRight 
-		add: (SpBoxLayout newTopToBottom 
-			add: directoryPresenter;
-			add: filesPresenter;
+		positionOfSlider: 25 percent;
+		add: (SpBoxLayout newTopToBottom
+			spacing: 5;
+			add: (SpBoxLayout newTopToBottom
+				add: directoryLabelPresenter expand: false;
+				add: directoryPresenter;
+				yourself);
+			add: (SpBoxLayout newTopToBottom
+				add: filesLabelPresenter expand: false;
+				add: filesPresenter;
+				yourself);
 			yourself);
 		add: imagePresenter;
-		positionOfSlider: 20 percent;
 		yourself
 ]
 
 { #category : 'initialization' }
 SptImageAnnotationPresenter >> initializePresenters [
-   directoryPresenter := self newTreeTable 
-		addColumn:
-			(SpCompositeTableColumn new
-				title: 'Directories';
-				addColumn:
-					(SpImageTableColumn new
-						width: 20;
-						evaluated: #icon;
-						yourself);
-				addColumn:
-					(SpStringTableColumn new
-						evaluated: #label;
-						yourself);
-				yourself);
+
+	self addStyle: 'sptAnnotation'.
+
+	directoryLabelPresenter := self newLabel 
+		addStyle: 'sptHeader';
+		label: 'Directories';
+		yourself.
+   directoryPresenter := self newTree
+		addStyle: 'sptAnnotationDirectory';
+		displayIcon: #icon;
+		display: #label;
 		roots: { StDirectoryWrapper on: FileLocator downloads };
 		children: [ :aClass | aClass subdirectories ];
 		expandRoots;
 		beResizable;
 		yourself.
-	filesPresenter := self newList
-		display: [ :each | each basename ];
+		
+	filesLabelPresenter := self newLabel 
+		addStyle: 'sptHeader';
+		label: 'Files';
 		yourself.
-	imagePresenter := self instantiate: (SptImageMetadataPresenter on: nil).
+	filesPresenter := self newList
+		display: #basename;
+		yourself.
+		
+	imagePresenter := self instantiate: SptImageMetadataPresenter on: nil
 ]
 
 { #category : 'initialization' }

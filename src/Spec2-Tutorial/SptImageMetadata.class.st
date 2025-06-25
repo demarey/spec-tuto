@@ -65,6 +65,12 @@ SptImageMetadata >> basicUpdateMetadataNamed: aSymbol with: aString [
 	LibC runCommand: command
 ]
 
+{ #category : 'testing' }
+SptImageMetadata >> exists [
+
+	^ self file exists
+]
+
 { #category : 'accessing' }
 SptImageMetadata >> file [
 	^ file
