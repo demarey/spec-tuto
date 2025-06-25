@@ -8,7 +8,8 @@ Class {
 		'imagePresenter',
 		'metadataPresenter',
 		'tag1Button',
-		'resetDescButton'
+		'resetDescButton',
+		'editMetadataButton'
 	],
 	#category : 'Spec2-Tutorial-Presenters',
 	#package : 'Spec2-Tutorial',
@@ -93,6 +94,12 @@ SptImageMetadataPresenter >> modelChanged [
 
 	imagePresenter image: self imageFromFile.
 	metadataPresenter model: self model
+]
+
+{ #category : 'actions' }
+SptImageMetadataPresenter >> openMetadataEditor [
+	
+	(SptMetadataEditorPresenter on: self model) open
 ]
 
 { #category : 'actions' }

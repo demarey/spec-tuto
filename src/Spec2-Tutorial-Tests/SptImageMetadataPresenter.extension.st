@@ -13,6 +13,12 @@ SptImageMetadataPresenter >> clickOnTag1 [
 ]
 
 { #category : '*Spec2-Tutorial-Tests' }
+SptImageMetadataPresenter >> clickOnUpdateMetadata [
+	
+	editMetadataButton click
+]
+
+{ #category : '*Spec2-Tutorial-Tests' }
 SptImageMetadataPresenter >> metadataNamed: aString [ 
 	
 	^ metadataPresenter metadataNamed: aString
