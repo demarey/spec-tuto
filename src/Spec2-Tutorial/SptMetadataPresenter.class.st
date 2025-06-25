@@ -5,7 +5,7 @@ Class {
 	#name : 'SptMetadataPresenter',
 	#superclass : 'SpPresenterWithModel',
 	#instVars : [
-		'metadataPresenter'
+		'table'
 	],
 	#category : 'Spec2-Tutorial-Presenters',
 	#package : 'Spec2-Tutorial',
@@ -25,13 +25,13 @@ SptMetadataPresenter >> defaultLayout [
 
 	^ SpBoxLayout newTopToBottom 
 		add: 'Image metadata' expand: false;
-		add: metadataPresenter;
+		add: table;
 		yourself
 ]
 
 { #category : 'initialization' }
 SptMetadataPresenter >> initializePresenters [
-    metadataPresenter := self newTable
+    table := self newTable
         addColumn: (SpStringTableColumn title: 'Key' evaluated: [ :association | association key]);
         addColumn: (SpStringTableColumn title: 'Value' evaluated: [ :association | association value]);
 		"addActionWith: [ :action | action name: 'zoom'; action: [ 1 halt ] ];"
@@ -41,7 +41,7 @@ SptMetadataPresenter >> initializePresenters [
 { #category : 'initialization' }
 SptMetadataPresenter >> modelChanged [ 
 
-	metadataPresenter items: (self model 
+	table items: (self model 
 		ifNotNil: [ :aModel | aModel metadata associations ]
 		ifNil: [ #() ]) 
 ]
