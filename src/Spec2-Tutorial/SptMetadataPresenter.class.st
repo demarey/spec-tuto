@@ -48,7 +48,7 @@ SptMetadataPresenter >> initializePresenters [
 { #category : 'initialization' }
 SptMetadataPresenter >> modelChanged [ 
 
-	table items: (self model 
+	metadataPresenter items: (self model 
 		ifNotNil: [ :aModel | aModel metadata associations ]
 		ifNil: [ #() ]) 
 ]
