@@ -1,15 +1,29 @@
 Class {
 	#name : 'SptImageMetadataPresenterTest',
 	#superclass : 'TestCase',
+	#instVars : [
+		'imagePresenter'
+	],
 	#category : 'Spec2-Tutorial-Tests-Presenters',
 	#package : 'Spec2-Tutorial-Tests',
 	#tag : 'Presenters'
 }
 
+{ #category : 'running' }
+SptImageMetadataPresenterTest >> tearDown [ 
+
+	imagePresenter application windows 
+		do: [ :window | window close ].
+		
+	super tearDown
+	
+
+
+]
+
 { #category : 'tests' }
 SptImageMetadataPresenterTest >> testAddingImageDescriptionMetadataShouldDisplayImageDescriptionInImageMetadataPresenter [
 
-	| imagePresenter |
 	imagePresenter := SptImageMetadataPresenter on: SptTestImageMetadata example.
 	self
 		should: [ imagePresenter metadataNamed: 'ImageDescription' ]
@@ -23,8 +37,48 @@ SptImageMetadataPresenterTest >> testAddingImageDescriptionMetadataShouldDisplay
 ]
 
 { #category : 'tests' }
+SptImageMetadataPresenterTest >> testClickingOnEditMetadataOpenTwoWindows [
+
+	imagePresenter := SptImageMetadataPresenter 
+							on: SptTestImageMetadata example.
+
+	imagePresenter open.
+	imagePresenter clickOnUpdateMetadata.
+
+	self assert: imagePresenter application windows size equals: 2
+	
+	
+	
+	
+
+
+
+]
+
+{ #category : 'tests' }
+SptImageMetadataPresenterTest >> testClickingOnResetOpenTwoWindows [
+
+	imagePresenter := SptImageMetadataPresenter 
+							on: SptTestImageMetadata example.
+
+	imagePresenter open.
+	SpWindowForceOpenNonModal 
+		during: [ imagePresenter clickOnResetImageDescription ].
+
+	self assert: imagePresenter application windows size equals: 2
+	
+	
+	
+	
+	
+
+
+
+]
+
+{ #category : 'tests' }
 SptImageMetadataPresenterTest >> testMouseOver [
-	| imagePresenter |
+
 	imagePresenter := SptImageMetadataPresenter on: SptTestImageMetadata example.
 
 	imagePresenter eventHandler whenMouseMoveDo: [ :event | event position inspect]
@@ -33,19 +87,27 @@ SptImageMetadataPresenterTest >> testMouseOver [
 { #category : 'tests' }
 SptImageMetadataPresenterTest >> testResetDescButtonIsDisabledWhenNoImageDescription [
 
-	| imagePresenter |
-	imagePresenter := SptImageMetadataPresenter on: SptTestImageMetadata example.
-	
-	self deny: imagePresenter resetDescButton isEnabled
-	
-	"to do: implement disable on change in metadata in imagePresenter"
+	imagePresenter := SptImageMetadataPresenter on:
+		                  SptTestImageMetadata example.
 
+	self deny: imagePresenter resetDescButton isEnabled
+]
+
+{ #category : 'tests' }
+SptImageMetadataPresenterTest >> testResetDescButtonIsEnabledAfterImageDescriptionSet [
+
+	imagePresenter := SptImageMetadataPresenter on:
+		                  SptTestImageMetadata example.
+	self deny: imagePresenter resetDescButton isEnabled.
+
+	imagePresenter clickOnTag1.
+
+	self assert: imagePresenter resetDescButton isEnabled
 ]
 
 { #category : 'tests' }
 SptImageMetadataPresenterTest >> testResetingImageDescriptionMetadataShouldRemoveItFromImageDescriptionInImageMetadataPresenterV1 [
 
-	| imagePresenter |
 	imagePresenter := SptImageMetadataPresenter on: (SptTestImageMetadata example
 			                   imageDescription: 'testResetingImageDescription';
 			                   yourself).
@@ -67,7 +129,6 @@ SptImageMetadataPresenterTest >> testResetingImageDescriptionMetadataShouldRemov
 { #category : 'tests' }
 SptImageMetadataPresenterTest >> testResetingImageDescriptionMetadataShouldRemoveItFromImageDescriptionInImageMetadataPresenterV2 [
 
-	| imagePresenter |
 	imagePresenter := SptImageMetadataPresenter on: (SptTestImageMetadata example
 			                   imageDescription: 'testResetingImageDescription';
 			                   yourself).
@@ -88,8 +149,7 @@ SptImageMetadataPresenterTest >> testResetingImageDescriptionMetadataShouldRemov
 { #category : 'tests' }
 SptImageMetadataPresenterTest >> testTag1LabelIsCorrect [
 
-	| imagePresenter |
-	imagePresenter := SptImageMetadataPresenter on: SptTestImageMetadata example.
+	imagePresenter := SptImageMetadataPresenter on: nil.
 	
 	self assert: imagePresenter tag1Button label equals: 'expo 1'
 ]
