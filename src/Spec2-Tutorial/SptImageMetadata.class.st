@@ -70,6 +70,18 @@ SptImageMetadata >> file [
 	^ file
 ]
 
+{ #category : 'testing' }
+SptImageMetadata >> hasImageDescription [
+	
+	^ self hasMetadataNamed: self imageDescriptionKey
+]
+
+{ #category : 'testing' }
+SptImageMetadata >> hasMetadataNamed: aSymbol [
+	
+	^ self metadata includesKey: aSymbol
+]
+
 { #category : 'initialization' }
 SptImageMetadata >> image: aFileReference [
 	
@@ -79,14 +91,19 @@ SptImageMetadata >> image: aFileReference [
 { #category : 'accessing - metadata' }
 SptImageMetadata >> imageDescription [
 	
-	^ self metadataNamed: #ImageDescription
+	^ self metadataNamed: self imageDescriptionKey
 ]
 
 { #category : 'accessing - metadata' }
 SptImageMetadata >> imageDescription: aString [
 
-	self basicUpdateMetadataNamed: #ImageDescription with: aString.
-	self updateMetadata
+	self updateMetadataNamed: self imageDescriptionKey with: aString
+]
+
+{ #category : 'accessing - metadata' }
+SptImageMetadata >> imageDescriptionKey [
+	
+	^ #ImageDescription
 ]
 
 { #category : 'accessing - metadata' }
@@ -141,4 +158,11 @@ SptImageMetadata >> resetImageDescription [
 SptImageMetadata >> updateMetadata [
 	
 	^ metadata := self readMetadata
+]
+
+{ #category : 'accessing - metadata' }
+SptImageMetadata >> updateMetadataNamed: aSymbol with: aString [
+	
+	self basicUpdateMetadataNamed: aSymbol with: aString.
+	self updateMetadata
 ]

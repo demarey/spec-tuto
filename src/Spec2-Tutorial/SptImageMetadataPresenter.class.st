@@ -49,11 +49,20 @@ SptImageMetadataPresenter >> emptyImage [
 	^ Form extent: 0 @ 0 depth: 0 bits: #( )
 ]
 
+{ #category : 'testing' }
+SptImageMetadataPresenter >> hasImageDescriptionMetadata [
+
+	^ self model
+		  ifNil: [ false ]
+		  ifNotNil: [ self model hasImageDescription ]
+]
+
 { #category : 'actions' }
 SptImageMetadataPresenter >> imageDescription: aString [
 
 	self model imageDescription: aString.
-	metadataPresenter model: self model.
+	self modelChanged.
+	resetDescButton enable.
 ]
 
 { #category : 'private' }
@@ -79,10 +88,15 @@ SptImageMetadataPresenter >> initializePresenters [
 		              label: 'expo 1';
 		              action: [ self imageDescription: 'expo 1' ];
 		              yourself.
+	editMetadataButton := self newButton
+		                      label: 'Edit metadata';
+		                      action: [ self openMetadataEditor ];
+		                      yourself.
 	resetDescButton := self newButton
-		              label: 'reset image description';
-		              action: [ self resetImageDescription ];
-		              yourself.
+		                   label: 'reset image description';
+		                   action: [ self resetImageDescription ];
+		                   enabled: self hasImageDescriptionMetadata;
+		                   yourself
 ]
 
 { #category : 'initialization' }
