@@ -5,7 +5,8 @@ Class {
 	#name : 'SptMetadataPresenter',
 	#superclass : 'SpPresenterWithModel',
 	#instVars : [
-		'table'
+		'table',
+        'label'
 	],
 	#category : 'Spec2-Tutorial-Presenters',
 	#package : 'Spec2-Tutorial',
@@ -24,13 +25,18 @@ SptMetadataPresenter class >> example [
 SptMetadataPresenter >> defaultLayout [ 
 
 	^ SpBoxLayout newTopToBottom 
-		add: 'Image metadata' expand: false;
+		add: label expand: false;
 		add: table;
 		yourself
 ]
 
 { #category : 'initialization' }
 SptMetadataPresenter >> initializePresenters [
+	label := self newLabel
+		addStyle: 'sptHeader';
+		label: 'Image Metadata';
+		yourself.
+			
     table := self newTable
         addColumn: (SpStringTableColumn title: 'Key' evaluated: [ :association | association key]);
         addColumn: (SpStringTableColumn title: 'Value' evaluated: [ :association | association value]);
