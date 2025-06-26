@@ -1,8 +1,12 @@
+"
+A Spec configuration used to style the Image Annotation app.
+"
 Class {
 	#name : 'SptImageAnnotationConfiguration',
 	#superclass : 'SpMorphicConfiguration',
-	#category : 'Spec2-Tutorial',
-	#package : 'Spec2-Tutorial'
+	#category : 'Spec2-Tutorial-Presenters',
+	#package : 'Spec2-Tutorial',
+	#tag : 'Presenters'
 }
 
 { #category : 'configuring' }

@@ -28,6 +28,12 @@ SptTestImageMetadata >> basicUpdateMetadataNamed: aSymbol with: aString [
 	persistedMetadata keysAndValuesRemove: [ :key :value | value isEmptyOrNil ]
 ]
 
+{ #category : 'testing' }
+SptTestImageMetadata >> exists [
+
+	^ false
+]
+
 { #category : 'accessing' }
 SptTestImageMetadata >> file [ 
 

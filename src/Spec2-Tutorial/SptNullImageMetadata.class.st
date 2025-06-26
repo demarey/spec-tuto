@@ -21,6 +21,17 @@ SptNullImageMetadata >> file [
 ]
 
 { #category : 'accessing' }
+SptNullImageMetadata >> fileName [
+	^ ''
+]
+
+{ #category : 'accessing' }
+SptNullImageMetadata >> imageFromFile [
+
+	^ nil
+]
+
+{ #category : 'accessing' }
 SptNullImageMetadata >> metadata [
 
 	^ Dictionary empty 

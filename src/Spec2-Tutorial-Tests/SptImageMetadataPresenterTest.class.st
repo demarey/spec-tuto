@@ -11,7 +11,8 @@ Class {
 
 { #category : 'running' }
 SptImageMetadataPresenterTest >> tearDown [ 
-
+	imagePresenter ifNil: [ ^ self ].
+	
 	imagePresenter application windows 
 		do: [ :window | window close ].
 		

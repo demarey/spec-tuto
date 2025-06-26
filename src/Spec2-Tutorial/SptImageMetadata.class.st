@@ -68,12 +68,23 @@ SptImageMetadata >> basicUpdateMetadataNamed: aSymbol with: aString [
 { #category : 'testing' }
 SptImageMetadata >> exists [
 
-	^ self file exists
+	^ self file 
+		ifNil: [ false ]
+		ifNotNil: [ self file exists ]
 ]
 
 { #category : 'accessing' }
 SptImageMetadata >> file [
 	^ file
+]
+
+{ #category : 'accessing' }
+SptImageMetadata >> fileName [
+	file ifNil: [ ^ '' ].
+
+	^ file exists
+		ifTrue: [ file basename ]
+		ifFalse: [ '' ]
 ]
 
 { #category : 'testing' }
@@ -110,6 +121,15 @@ SptImageMetadata >> imageDescription: aString [
 SptImageMetadata >> imageDescriptionKey [
 	
 	^ #ImageDescription
+]
+
+{ #category : 'accessing' }
+SptImageMetadata >> imageFromFile [
+
+	^ [ self file binaryReadStreamDo: [ :stream |
+		  ImageReadWriter formFromStream: stream ] ]
+		on: UnrecognizedImageFormatError 
+		do: [ nil ]
 ]
 
 { #category : 'accessing - metadata' }

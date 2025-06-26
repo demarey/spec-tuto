@@ -6,7 +6,7 @@ Class {
 	#superclass : 'SpPresenterWithModel',
 	#instVars : [
 		'table',
-        'label'
+		'label'
 	],
 	#category : 'Spec2-Tutorial-Presenters',
 	#package : 'Spec2-Tutorial',

@@ -59,12 +59,6 @@ SptImageMetadataPresenter >> defaultLayout [
 		yourself
 ]
 
-{ #category : 'private' }
-SptImageMetadataPresenter >> emptyImage [
-
-	^ Form extent: 0 @ 0 depth: 0 bits: #( )
-]
-
 { #category : 'testing' }
 SptImageMetadataPresenter >> hasImageDescriptionMetadata [
 
@@ -79,15 +73,6 @@ SptImageMetadataPresenter >> imageDescription: aString [
 	self model imageDescription: aString.
 	self modelChanged.
 	resetDescButton enable.
-]
-
-{ #category : 'private' }
-SptImageMetadataPresenter >> imageFromFile [
-
-	^ [ self model file binaryReadStreamDo: [ :stream |
-		  ImageReadWriter formFromStream: stream ] ]
-		on: UnrecognizedImageFormatError 
-		do: [ self emptyImage ]
 ]
 
 { #category : 'initialization' }
@@ -128,18 +113,12 @@ SptImageMetadataPresenter >> initializePresenters [
 SptImageMetadataPresenter >> modelChanged [
 
 	self model ifNil: [
-		self model: SptNullImageMetadata new.
-		^ self ].
+			self model: SptNullImageMetadata new.
+			^ self ].
 
-	self model  exists  
-		ifTrue: [ 
-			noImageLabelPresenter hide.
-			imageLabelPresenter label: self model file basename.
-			imagePresenter image: self imageFromFile ]
-		ifFalse: [ 
-			noImageLabelPresenter show.
-			imageLabelPresenter label: ''.
-			imagePresenter image: nil ].
+	imagePresenter image: self model imageFromFile.
+	imageLabelPresenter label: self model fileName.
+	noImageLabelPresenter visible: self model exists not.
 	metadataPresenter model: self model
 ]
 
