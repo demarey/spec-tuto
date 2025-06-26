@@ -70,7 +70,7 @@ SptImageAnnotationPresenter >> initializePresenters [
 		addStyle: 'sptAnnotationDirectory';
 		displayIcon: #icon;
 		display: #label;
-		roots: { StDirectoryWrapper on: FileLocator downloads };
+		roots: { StDirectoryWrapper on: (IceRepository repositoryNamed: 'spec-tuto') location };
 		children: [ :aClass | aClass subdirectories ];
 		expandRoots;
 		beResizable;
