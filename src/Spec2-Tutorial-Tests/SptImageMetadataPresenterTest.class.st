@@ -23,13 +23,13 @@ SptImageMetadataPresenterTest >> testAddingImageDescriptionMetadataShouldDisplay
 
 	imagePresenter := SptImageMetadataPresenter on: SptTestImageMetadata example.
 	self
-		should: [ imagePresenter metadataNamed: 'ImageDescription' ]
+		should: [ imagePresenter metadataNamed: 'Image Description' ]
 		raise: NotFound.
 
 	imagePresenter clickOnTag1.
 
 	self
-		assert: (imagePresenter metadataNamed: 'ImageDescription')
+		assert: (imagePresenter metadataNamed: 'Image Description')
 		equals: 'expo 1'
 ]
 

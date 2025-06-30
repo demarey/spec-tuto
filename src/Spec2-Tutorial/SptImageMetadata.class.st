@@ -16,9 +16,15 @@ Class {
 { #category : 'examples' }
 SptImageMetadata class >> example [
 
+	^ self exampleWith: self exifOuputExample
+]
+
+{ #category : 'examples' }
+SptImageMetadata class >> exampleWith: exifString [
+
 	| instance |
 	instance := self forImage: FileSystem memory root.
-	instance metadata: (instance metadataFromExifOutput: self exifOuputExample).
+	instance metadata: (instance metadataFromExifOutput: exifString).
 	^ instance
 ]
 

@@ -17,15 +17,8 @@ Class {
 { #category : 'examples' }
 SptTestImageMetadata class >> exampleWithImageDescription [
 
-	^ self example
-]
-
-{ #category : 'examples' }
-SptTestImageMetadata class >> exifOuputExample [
-
-	^ super exifOuputExample , String cr ,
-		'Image Description               : expo1'
-
+	^ self exampleWith: self exifOuputExample , String cr
+		  , 'Image Description               : expo1'
 ]
 
 { #category : 'class initialization' }
