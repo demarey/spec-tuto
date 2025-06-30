@@ -10,16 +10,12 @@ Class {
 }
 
 { #category : 'running' }
-SptImageMetadataPresenterTest >> tearDown [ 
-	imagePresenter ifNil: [ ^ self ].
-	
-	imagePresenter application windows 
-		do: [ :window | window close ].
-		
+SptImageMetadataPresenterTest >> tearDown [
+
+	imagePresenter ifNotNil: [
+		imagePresenter application windows do: [ :window | window close ] ].
+
 	super tearDown
-	
-
-
 ]
 
 { #category : 'tests' }
@@ -57,14 +53,13 @@ SptImageMetadataPresenterTest >> testClickingOnEditMetadataOpenTwoWindows [
 ]
 
 { #category : 'tests' }
-SptImageMetadataPresenterTest >> testClickingOnResetOpenTwoWindows [
+SptImageMetadataPresenterTest >> testClickingOnResetOpenTwoWindowsV1 [
 
 	imagePresenter := SptImageMetadataPresenter 
 							on: SptTestImageMetadata example.
 
 	imagePresenter open.
-	SpWindowForceOpenNonModal 
-		during: [ imagePresenter clickOnResetImageDescription ].
+	imagePresenter clickOnResetImageDescription.
 
 	self assert: imagePresenter application windows size equals: 2
 	
@@ -75,6 +70,19 @@ SptImageMetadataPresenterTest >> testClickingOnResetOpenTwoWindows [
 
 
 
+]
+
+{ #category : 'tests' }
+SptImageMetadataPresenterTest >> testClickingOnResetOpenTwoWindowsV2 [
+
+	imagePresenter := SptImageMetadataPresenter on:
+		                  SptTestImageMetadata exampleWithImageDescription.
+
+	imagePresenter open.
+	SpWindowForceOpenNonModal during: [
+		imagePresenter clickOnResetImageDescription ].
+
+	self assert: imagePresenter application windows size equals: 2
 ]
 
 { #category : 'tests' }
@@ -114,7 +122,7 @@ SptImageMetadataPresenterTest >> testResetingImageDescriptionMetadataShouldRemov
 			                   yourself).
 	imagePresenter model: imagePresenter model.
 	self
-		assert: (imagePresenter metadataNamed: 'ImageDescription')
+		assert: (imagePresenter metadataNamed: 'Image Description')
 		equals: 'testResetingImageDescription'.
 
 	SpWindowForceOpenNonModal during: [
@@ -123,7 +131,7 @@ SptImageMetadataPresenterTest >> testResetingImageDescriptionMetadataShouldRemov
 	 ].
 
 	self
-		should: [ imagePresenter metadataNamed: 'ImageDescription' ]
+		should: [ imagePresenter metadataNamed: 'Image Description' ]
 		raise: NotFound
 ]
 
@@ -135,7 +143,7 @@ SptImageMetadataPresenterTest >> testResetingImageDescriptionMetadataShouldRemov
 			                   yourself).
 	imagePresenter model: imagePresenter model.
 	self
-		assert: (imagePresenter metadataNamed: 'ImageDescription')
+		assert: (imagePresenter metadataNamed: 'Image Description')
 		equals: 'testResetingImageDescription'.
 
 	SpWindowSimulateOpenModal 
@@ -143,7 +151,7 @@ SptImageMetadataPresenterTest >> testResetingImageDescriptionMetadataShouldRemov
 		during: [ imagePresenter clickOnResetImageDescription ].
 
 	self
-		should: [ imagePresenter metadataNamed: 'ImageDescription' ]
+		should: [ imagePresenter metadataNamed: 'Image Description' ]
 		raise: NotFound
 ]
 

@@ -120,7 +120,7 @@ SptImageMetadata >> imageDescription: aString [
 { #category : 'accessing - metadata' }
 SptImageMetadata >> imageDescriptionKey [
 	
-	^ #ImageDescription
+	^ #'Image Description'
 ]
 
 { #category : 'accessing' }

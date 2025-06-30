@@ -14,6 +14,20 @@ Class {
 	#tag : 'Model'
 }
 
+{ #category : 'examples' }
+SptTestImageMetadata class >> exampleWithImageDescription [
+
+	^ self example
+]
+
+{ #category : 'examples' }
+SptTestImageMetadata class >> exifOuputExample [
+
+	^ super exifOuputExample , String cr ,
+		'Image Description               : expo1'
+
+]
+
 { #category : 'class initialization' }
 SptTestImageMetadata class >> forImage: aFileReference [
 
