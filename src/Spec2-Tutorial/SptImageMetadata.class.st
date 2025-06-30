@@ -64,7 +64,7 @@ SptImageMetadata >> basicUpdateMetadataNamed: aSymbol with: aString [
 
 	| command |
 	command := 'exiftool -{1}="{2}" {3}' format: {
-						  aSymbol asString .
+						  aSymbol asString asCamelCase .
 			           aString .
 			           (file fullName surroundedBy: '"') }.
 
