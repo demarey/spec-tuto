@@ -24,7 +24,7 @@ SptImageMetadataPresenter class >> example [
 	<script>
 	
 	| image |
-	image := FileLocator downloads / 'nice-photo-set' / 'pexels-jay-brand-1763356224-32512240.jpg'.
+	image := (IceRepository repositoryNamed: 'spec-tuto') location / 'nice-photo-set' / 'pexels-jay-brand-1763356224-32512240.jpg'.
 	(self on: (SptImageMetadata forImage: image))
 		open;
 		model: (SptImageMetadata forImage: image)
