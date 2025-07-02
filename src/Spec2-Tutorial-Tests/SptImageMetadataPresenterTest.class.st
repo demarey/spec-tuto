@@ -105,8 +105,7 @@ SptImageMetadataPresenterTest >> testResetDescButtonIsDisabledWhenNoImageDescrip
 { #category : 'tests' }
 SptImageMetadataPresenterTest >> testResetDescButtonIsEnabledAfterImageDescriptionSet [
 
-	imagePresenter := SptImageMetadataPresenter on:
-		                  SptTestImageMetadata example.
+	imagePresenter := SptImageMetadataPresenter on: SptTestImageMetadata example.
 	self deny: imagePresenter resetDescButton isEnabled.
 
 	imagePresenter clickOnTag1.
@@ -120,7 +119,6 @@ SptImageMetadataPresenterTest >> testResetingImageDescriptionMetadataShouldRemov
 	imagePresenter := SptImageMetadataPresenter on: (SptTestImageMetadata example
 			                   imageDescription: 'testResetingImageDescription';
 			                   yourself).
-	imagePresenter model: imagePresenter model.
 	self
 		assert: (imagePresenter metadataNamed: 'Image Description')
 		equals: 'testResetingImageDescription'.
@@ -141,7 +139,6 @@ SptImageMetadataPresenterTest >> testResetingImageDescriptionMetadataShouldRemov
 	imagePresenter := SptImageMetadataPresenter on: (SptTestImageMetadata example
 			                   imageDescription: 'testResetingImageDescription';
 			                   yourself).
-	imagePresenter model: imagePresenter model.
 	self
 		assert: (imagePresenter metadataNamed: 'Image Description')
 		equals: 'testResetingImageDescription'.
